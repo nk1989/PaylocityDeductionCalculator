@@ -1,0 +1,70 @@
+﻿@model PaylocityDeductionCalculator.Models.Employee
+@{
+    ViewBag.Title = "AddDependent";
+}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Lato:100i,300,300i,400,400i,700|Open+Sans:300,300i,400,400i,600,600i,700|Roboto:100,100i,300,300i,400,400i,500,500i" rel="stylesheet">
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+
+<h3>Add @Model.FirstName's Dependents</h3>
+<h5>Enter the employee's dependent information below to calculate their benefits deduction</h5>
+
+@using (Html.BeginForm())
+{
+    <div class="form-frame">
+        <div class="inputWrapper">
+
+        </div>
+        <button type="button" class="btn btn-sm btn-primary addInput"><i class="fa fa-plus"></i> &nbsp;Add New Dependent</button>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Calculate" class="btn btn-primary" />
+        </div>
+    </div>
+}
+<script>
+    var input_str = {
+        title: "Dependent",
+        forms: [
+            {
+                type: "text",
+                name: "dependentName",
+                class: "form-control mb-2",
+                placeholder: "Enter full name..."
+            },
+        ],
+    };
+
+    $(document).ready(() => {
+        $(".addInput").click(function () {
+            build_inputs($(this), input_str);
+        });
+    });
+
+    var dependentCount = 1;
+    function build_inputs(e, configs = false) {
+        var ind = $(".adp-slides").length > 0 ? $(".adp-slides").length + 1 : 1;
+        var str = `<div id="${configs.title + "-" + ind}" class="row adp-slides"><div class="col-md-5"><div class="form-group"><label><b>${configs.title} ${ind}</b></label>`;
+
+        configs.forms.forEach(config => {
+            str += `<input type="${config.type}" name="${config.name}" id="dependentFullName${dependentCount}" class="${config.class}" data-rel="${configs.title + "-" + ind}" placeholder="${config.placeholder}" required><br/>`;
+            str += `<select class="form-control" name="dependentType" id="dependentType${dependentCount}" required>
+                    <option value="">--Select--</option>
+                    <option value="Spouse">Spouse</option>
+                    <option value="Child">Child</option>
+                </select>`;
+
+            dependentCount++;
+        });
+
+        str += `</div></div><div class="col-md-2"><span class="btn btn-sm btn-danger removeSlide" data-target="${configs.title + "-" + ind}"><i class="fas fa-trash-alt"></i> Remove</span></div></div><br/>`;
+
+        $(".inputWrapper").append(str);
+        $(".removeSlide").click(function () {
+            $("#" + $(this).attr("data-target")).remove();
+        });
+    }
+</script>
+
+

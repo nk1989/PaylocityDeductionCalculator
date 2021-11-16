@@ -1,0 +1,112 @@
+﻿@model PaylocityDeductionCalculator.Models.Result
+
+@{
+    ViewBag.Title = "Result";
+}
+
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" crossorigin="anonymous">
+
+<h3>Calculation Results</h3>
+<h5>Employee's information on their benefits deduction</h5>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Deductions.First().FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deductions.First().PersonType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deductions.First().DiscountAmountPerPayCheck)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deductions.First().DeductionPerPayCheck)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deductions.First().DecuctionPerYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deductions.First().ToFriendlyString)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Deductions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountAmountPerPayCheck)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeductionPerPayCheck)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DecuctionPerYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToFriendlyString)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalDeductionPerPayCheck)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalDeductionPerYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalDiscountPerPayCheck)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalDiscountPerYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPaycheckAfterDeductions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalYearlyPayAfterDeductions)
+        </th>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.TotalDeductionPerPayCheck)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.TotalDeductionPerYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.TotalDiscountPerPayCheck)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.TotalDiscountPerYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.TotalPaycheckAfterDeductions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.TotalYearlyPayAfterDeductions)
+        </td>
+    </tr>
+</table>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.ActionLink("Start New", "Index", null, new { @class = "btn btn-primary btn-sm" })
+    </div>
+</div>
